@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scenespack</title>
+<title>ALEXSCPS</title>
 
 <style>
 body {
@@ -13,21 +13,25 @@ body {
   color: white;
 }
 
+/* HEADER */
 header {
   display:flex;
   justify-content:space-between;
   padding:20px 40px;
 }
 
-header h1 span {color:#5cc8ff}
+header h1 span {
+  color:#5cc8ff;
+}
 
+/* HERO */
 .hero {
   text-align:center;
   margin:60px 0;
 }
 
 .hero h2 {
-  font-size:48px;
+  font-size:50px;
 }
 
 .hero h2 span {
@@ -36,19 +40,17 @@ header h1 span {color:#5cc8ff}
   color:transparent;
 }
 
-.search {
-  margin-top:20px;
-}
-
 .search input {
   padding:15px;
-  width:300px;
+  width:320px;
   border-radius:30px;
   border:none;
   background:#111827;
   color:white;
+  outline:none;
 }
 
+/* GRID */
 .grid {
   display:grid;
   grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
@@ -64,15 +66,24 @@ header h1 span {color:#5cc8ff}
   transition:.3s;
 }
 
-.card:hover {transform:scale(1.05)}
+.card:hover {
+  transform:scale(1.05);
+}
 
-.card img {width:100%}
+.card img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
 
+/* MODAL */
 .modal {
   display:none;
   position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   background:rgba(0,0,0,0.8);
 }
 
@@ -91,30 +102,28 @@ button {
   border-radius:5px;
   cursor:pointer;
 }
-
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>DILFY<span>SCPS</span></h1>
-  <nav>
-    HOME PACKS SOCIALS
-  </nav>
+  <h1>ALEX<span>SCPS</span></h1>
 </header>
 
 <section class="hero">
   <h2>Browse <span>Scenepacks</span></h2>
   <div class="search">
-    <input type="text" id="search" placeholder="Search...">
+    <input type="text" id="search" placeholder="Search scenepack...">
   </div>
 </section>
 
 <section class="grid" id="grid"></section>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
-    <span id="close" style="float:right;cursor:pointer">X</span>
+    <span id="close" style="float:right;cursor:pointer">✕</span>
     <img id="modal-img" style="width:100%">
     <h2 id="modal-title"></h2>
     <p id="modal-desc"></p>
@@ -124,9 +133,24 @@ button {
 
 <script>
 const data = [
-  {title:"Anyone But You", img:"https://image.tmdb.org/t/p/w500/1.jpg", desc:"Romance movie", link:"#"},
-  {title:"Bullet Train", img:"https://image.tmdb.org/t/p/w500/2.jpg", desc:"Action movie", link:"#"},
-  {title:"We Own This City", img:"https://image.tmdb.org/t/p/w500/3.jpg", desc:"TV show", link:"#"}
+  {
+    title:"Anyone But You",
+    img:"https://picsum.photos/300/400?1",
+    desc:"Romance / Comedy",
+    link:"https://drive.google.com/"
+  },
+  {
+    title:"Bullet Train",
+    img:"https://picsum.photos/300/400?2",
+    desc:"Action / Thriller",
+    link:"https://drive.google.com/"
+  },
+  {
+    title:"We Own This City",
+    img:"https://picsum.photos/300/400?3",
+    desc:"TV Show",
+    link:"https://drive.google.com/"
+  }
 ];
 
 const grid = document.getElementById("grid");
@@ -137,6 +161,7 @@ function render(list){
   list.forEach(item=>{
     const card = document.createElement("div");
     card.className="card";
+
     card.innerHTML = `<img src="${item.img}">`;
 
     card.onclick = ()=>{
@@ -148,27 +173,24 @@ function render(list){
     }
 
     grid.appendChild(card);
-  })
+  });
 }
 
 render(data);
 
-// search
-
+/* SEARCH */
 document.getElementById("search").addEventListener("input", e=>{
   const value = e.target.value.toLowerCase();
   const filtered = data.filter(i=>i.title.toLowerCase().includes(value));
   render(filtered);
 });
 
-// close modal
-
+/* CLOSE */
 document.getElementById("close").onclick=()=>modal.style.display="none";
 
 window.onclick = (e)=>{
   if(e.target==modal) modal.style.display="none";
 }
-
 </script>
 
 </body>
